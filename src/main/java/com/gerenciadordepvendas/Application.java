@@ -27,9 +27,6 @@ public class Application extends javafx.application.Application {
         Connection con = DB.getConnection();
         DB.closeConection();
     }
-
-
-
     public static void main(String[] args) {
         launch();
     }
