@@ -28,6 +28,7 @@ public class Application extends javafx.application.Application {
         DB.closeConection();
     }
 
+
     public static void main(String[] args) {
         launch();
     }
