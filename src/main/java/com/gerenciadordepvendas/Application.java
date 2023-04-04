@@ -2,7 +2,9 @@ package com.gerenciadordepvendas;
 
 import com.gerenciadordepvendas.db.DB;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -12,9 +14,15 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("View.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello2jhgkhj!");
+        ScrollPane scrollPane = fxmlLoader.load();
+
+        Scene scene = new Scene(scrollPane);
+
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+
         stage.setScene(scene);
+        stage.setTitle("Hello!");
         stage.show();
         Connection con = DB.getConnection();
         DB.closeConection();
