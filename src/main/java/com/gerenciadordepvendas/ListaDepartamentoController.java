@@ -36,5 +36,6 @@ public class ListaDepartamentoController implements Initializable {
         tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("Nome"));
 //        Stage stage = (Stage) Application.getScene().getWindow();
 //        departamentoTableView.prefHeightProperty().bind(stage.heightProperty());
+
     }
 }
