@@ -32,7 +32,6 @@ public class Controller implements Initializable {
         System.out.println("Teste Vendedor");
     }
 
-
     @FXML
     public void onMenuItemDepartamentoAcao(){
         loadView("ListaDepartamentos.fxml", (ListaDepartamentoController controller) -> {
