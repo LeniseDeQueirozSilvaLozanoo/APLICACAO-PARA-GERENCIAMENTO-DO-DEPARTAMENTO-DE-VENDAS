@@ -22,14 +22,12 @@ public class Application extends javafx.application.Application {
             scrollPane.setFitToHeight(true);
             scrollPane.setFitToWidth(true);
             stage.setScene(scene);
-            stage.setTitle("Gerenciador de Departamento de Vendas");
+            stage.setTitle("Gerenciador de Department de Vendas");
             stage.show();
         }
         catch (IOException e){
             e.printStackTrace();
         }
-        Connection con = DB.getConnection();
-        DB.closeConection();
     }
 
     public static Scene getScene(){

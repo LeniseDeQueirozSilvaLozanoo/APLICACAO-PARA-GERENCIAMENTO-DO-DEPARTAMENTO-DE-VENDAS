@@ -1,5 +1,6 @@
 package com.gerenciadordepvendas;
 
+import com.gerenciadordepvendas.services.DepartamentoServico;
 import com.util.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 public class Controller implements Initializable {
 
@@ -32,12 +34,15 @@ public class Controller implements Initializable {
 
 
     @FXML
-    public void onMenuItemDepartamentoAcao(){loadView("ListaDepartamentos.fxml");
+    public void onMenuItemDepartamentoAcao(){
+        loadView("ListaDepartamentos.fxml", (ListaDepartamentoController controller) -> {
+            controller.setDepartamentoServico(new DepartamentoServico());
+            controller.updateTableView();
+        } );
     }
 
-
     @FXML
-    public void onMenuItemSobreAcao(){ loadView("About.fxml");
+    public void onMenuItemSobreAcao(){ loadView("About.fxml", x -> {});
     }
 
     @Override
@@ -45,7 +50,7 @@ public class Controller implements Initializable {
 
     }
 
-    private void loadView(String absoluteName){
+    private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             VBox newVBox = loader.load();
@@ -56,9 +61,14 @@ public class Controller implements Initializable {
             aplicationVBox.getChildren().clear();
             aplicationVBox.getChildren().add(aplicationMenu);
             aplicationVBox.getChildren().addAll(newVBox.getChildren());
+
+              T controller = loader.getController();
+              initializingAction.accept(controller);
+            System.out.println("sdf");
+
         }
         catch (IOException e){
-            Alerts.showAlert("IO Exception", "Error ao carregar a página", e.getMessage(), Alert.AlertType.ERROR);
+            Alerts.showAlert("IO Exception", "Erro ao carregar a página", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 }
