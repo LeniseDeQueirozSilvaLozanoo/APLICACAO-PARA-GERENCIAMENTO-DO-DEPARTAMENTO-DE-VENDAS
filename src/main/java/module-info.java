@@ -9,6 +9,7 @@ module com.example.gerenciadordepvendas {
     requires net.synedra.validatorfx;
     requires mysql.connector.j;
 
+
     opens com.gerenciadordepvendas.model.entities;
     opens com.gerenciadordepvendas to javafx.fxml;
     exports com.gerenciadordepvendas;
