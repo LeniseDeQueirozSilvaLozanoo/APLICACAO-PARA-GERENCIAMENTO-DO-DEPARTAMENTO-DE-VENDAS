@@ -2,6 +2,8 @@ package com.gerenciadordepvendas;
 
 import com.gerenciadordepvendas.db.DbException;
 import com.gerenciadordepvendas.model.entities.Department;
+import com.gerenciadordepvendas.model.exceptions.ValidationException;
+import com.gerenciadordepvendas.services.DataChangeListener;
 import com.gerenciadordepvendas.services.DepartamentoServico;
 import com.util.Alerts;
 import com.util.Constraints;
@@ -15,12 +17,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class DepartamentoFormularioController implements Initializable {
 
     private Department entity;
     private DepartamentoServico departamentoServico;
+    private List<DataChangeListener> dataChangeListeners =  new ArrayList<>();
+
     @FXML
     private TextField txtId;
     @FXML
@@ -39,6 +43,10 @@ public class DepartamentoFormularioController implements Initializable {
     public void setDepartment(Department entity){
         this.entity = entity;
     }
+
+    public void subscribeDataChaneListener(DataChangeListener listener) {
+        dataChangeListeners.add(listener);
+    }
     @FXML
     private void onBtSaveAction(ActionEvent event){
         if(entity == null){
@@ -50,17 +58,37 @@ public class DepartamentoFormularioController implements Initializable {
         try {
             entity = getFormData();
             departamentoServico.saveOrUpdate(entity);
+            notifyDataChangeListeners();
             Utils.currentStage(event).close();
-        }catch (DbException e){
+        }
+        catch (ValidationException e){
+            setErrorMessages(e.getErrors());
+        }
+
+        catch (DbException e){
             Alerts.showAlert("Erro ao salvar Departamento",null, e.getMessage(), Alert.AlertType.ERROR);
         }
 
     }
 
+    private void notifyDataChangeListeners() {
+        for (DataChangeListener listener : dataChangeListeners){
+            listener.onDataChanged();
+        }
+    }
+
     private Department getFormData() {
         Department departmentObject = new Department();
+        ValidationException exception = new ValidationException("Erro de validação");
         departmentObject.setId(Utils.tryParseToInt(txtId.getText()));
+        if(txtName.getText() == null || txtName.getText().trim().equals("")){
+            exception.addError("name", "Campo nsão pode ser vazio");
+        }
         departmentObject.setName(txtName.getText());
+
+        if(exception.getErrors().size() > 0){
+            throw exception;
+        }
 
         return departmentObject;
     }
@@ -91,5 +119,13 @@ public class DepartamentoFormularioController implements Initializable {
             txtId.setText(String.valueOf(entity.getId()));
         }
         txtName.setText(entity.getName());
+    }
+
+    private void setErrorMessages(Map<String, String> errors){
+        Set<String> fields = errors.keySet();
+        if (fields.contains("name")){
+            labelErrorName.setText(errors.get("name"));
+
+        }
     }
 }
