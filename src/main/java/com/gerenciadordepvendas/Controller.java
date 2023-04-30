@@ -1,6 +1,7 @@
 package com.gerenciadordepvendas;
 
 import com.gerenciadordepvendas.services.DepartamentoServico;
+import com.gerenciadordepvendas.services.VendedoresServico;
 import com.util.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,8 +29,11 @@ public class Controller implements Initializable {
     private MenuItem menuItemSobre;
 
     @FXML
-    public void onMenuItemVendedorAcao(){
-        System.out.println("Teste Vendedor");
+    public void onMenuItemVendedorAcao() {
+        loadView("ListaVendedores.fxml", (ListaVendedoresController controller) -> {
+            controller.setVendedoresServico(new VendedoresServico());
+            controller.updateTableView();
+        } );
     }
 
     @FXML
