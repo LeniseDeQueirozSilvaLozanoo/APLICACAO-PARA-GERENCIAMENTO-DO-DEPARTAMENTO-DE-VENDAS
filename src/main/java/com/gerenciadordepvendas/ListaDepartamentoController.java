@@ -105,6 +105,7 @@ public class ListaDepartamentoController implements Initializable, DataChangeLis
 
 
         }catch (IOException e){
+            e.printStackTrace();
             Alerts.showAlert("IO Exception","Error loadview",e.getMessage(), ERROR);
         }
     }

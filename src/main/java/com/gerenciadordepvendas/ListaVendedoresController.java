@@ -64,7 +64,7 @@ public class ListaVendedoresController implements Initializable, DataChangeListe
     public void onBtNewAction(ActionEvent event){
         Stage parentState = Utils.currentStage(event);
         Seller seller = new Seller();
-        createDialogForm(seller,"DepartmentForm.fxml",parentState);
+        createDialogForm(seller,"SellerForm.fxml",parentState);
     }
 
     public void setVendedoresServico(VendedoresServico vendedoresServico) {
@@ -100,28 +100,30 @@ public class ListaVendedoresController implements Initializable, DataChangeListe
     }
 
     public void createDialogForm(Seller vendedoresObj, String absoluteName, Stage parentStage){
-//        try{
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-//            Pane pane = loader.load();
-//
-//            VendedoresFormularioController vendedoresFormularioController = loader.getController();
-//            vendedoresFormularioController.setSeller(vendedoresObj);
-//            vendedoresFormularioController.setSellerServico(new VendedoresServico());
-//            vendedoresFormularioController.subscribeDataChaneListener(this);
-//            vendedoresFormularioController.updateFormData();
-//
-//            Stage dialogStage = new Stage();
-//            dialogStage.setTitle("Digite os dados do departamento");
-//            dialogStage.setScene(new Scene(pane));
-//            dialogStage.setResizable(false);
-//            dialogStage.initOwner(parentStage);
-//            dialogStage.initModality(Modality.WINDOW_MODAL);
-//            dialogStage.showAndWait();
-//
-//
-//        }catch (IOException e){
-//            Alerts.showAlert("IO Exception","Error loadview",e.getMessage(), ERROR);
-//        }
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+            Pane pane = loader.load();
+
+            VendedoresFormularioController vendedoresFormularioController = loader.getController();
+            vendedoresFormularioController.setSeller(vendedoresObj);
+            vendedoresFormularioController.setServico(new VendedoresServico(), new DepartamentoServico());
+            vendedoresFormularioController.loadAssociatedObjects();
+            vendedoresFormularioController.subscribeDataChaneListener(this);
+            vendedoresFormularioController.updateFormData();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Digite os dados do vendedor");
+            dialogStage.setScene(new Scene(pane));
+            dialogStage.setResizable(false);
+            dialogStage.initOwner(parentStage);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.showAndWait();
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+            Alerts.showAlert("IO Exception","Error loadview",e.getMessage(), ERROR);
+        }
     }
 
     @Override

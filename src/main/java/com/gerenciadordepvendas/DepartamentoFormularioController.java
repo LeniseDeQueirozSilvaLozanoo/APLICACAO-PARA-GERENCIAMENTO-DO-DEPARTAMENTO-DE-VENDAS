@@ -82,7 +82,7 @@ public class DepartamentoFormularioController implements Initializable {
         ValidationException exception = new ValidationException("Erro de validação");
         departmentObject.setId(Utils.tryParseToInt(txtId.getText()));
         if(txtName.getText() == null || txtName.getText().trim().equals("")){
-            exception.addError("name", "Campo nsão pode ser vazio");
+            exception.addError("name", "Campo não pode ser vazio");
         }
         departmentObject.setName(txtName.getText());
 

@@ -7,7 +7,7 @@ public class Seller {
     private String name;
     private String email;
     private Date birthDate;
-    private Double baseSalary;
+    private Double baseSalary = 0.00;
 
     private Department department;
 
