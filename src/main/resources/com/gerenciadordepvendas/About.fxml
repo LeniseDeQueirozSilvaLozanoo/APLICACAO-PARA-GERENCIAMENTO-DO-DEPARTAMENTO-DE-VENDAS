@@ -2,23 +2,33 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" >
+<VBox prefHeight="515.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="About">
+      <Label text="Sobre">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold Italic" size="18.0" />
          </font>
          <padding>
             <Insets bottom="10.0" left="20.0" top="10.0" />
          </padding>
       </Label>
-      <Label text="Teste teste">
+      <Label prefHeight="44.0" prefWidth="650.0" text="Gerencie Departamento de Vendas da sua empresa com muito mais facilidade! " textFill="#4b5f8e">
          <padding>
             <Insets left="20.0" right="10.0" />
          </padding>
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
       </Label>
+      <Label prefHeight="26.0" prefWidth="699.0" />
+      <TextArea editable="false" opacity="0.81" prefHeight="219.0" prefWidth="654.0" text="Na tela Departamento cadastre os departamentos da sua empresa. Em seguida, na &#10;tela de Vendedores, faça o cadastro dos seus colaboradores, linkando-os aos respectivos&#10;departamentos.&#10;&#10;É possível editar ou excluir as informações e conferir sempre que necessário. Todos os &#10;dados são atualizados automaticamente no seu banco de dados.">
+         <font>
+            <Font name="System Italic" size="16.0" />
+         </font>
+      </TextArea>
    </children>
 </VBox>
